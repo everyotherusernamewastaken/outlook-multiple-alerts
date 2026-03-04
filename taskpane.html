@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Multiple Alerts</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .reminder-list {
+            margin-bottom: 20px;
+        }
+
+        .reminder-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reminder-info {
+            flex: 1;
+        }
+
+        .reminder-time {
+            font-weight: bold;
+            color: #0078d4;
+        }
+
+        .reminder-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #0078d4;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #106ebe;
+        }
+
+        .btn-danger {
+            background-color: #d13438;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #a4262c;
+        }
+
+        .btn-secondary {
+            background-color: #f3f2f1;
+            color: #323130;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e1dfdd;
+        }
+
+        .add-reminder-section {
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #323130;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #d1d1d1;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .limit-warning {
+            background-color: #fff4ce;
+            border: 1px solid #ffb900;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            color: #323130;
+        }
+
+        .error-message {
+            background-color: #fde7e9;
+            border: 1px solid #d13438;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            color: #323130;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Multiple Alerts</h1>
+
+    <div id="error-container"></div>
+    <div id="limit-warning" class="limit-warning" style="display: none;">
+        You've reached the maximum of 5 reminders for this item.
+    </div>
+
+    <div class="reminder-list" id="reminder-list">
+        <div class="empty-state">
+            <p>No reminders configured yet.</p>
+            <p>Add your first reminder below.</p>
+        </div>
+    </div>
+
+    <div class="add-reminder-section">
+        <h2 style="font-size: 16px; margin-top: 0;">Add New Reminder</h2>
+        
+        <div class="form-group">
+            <label for="reminder-time">Remind me:</label>
+            <select id="reminder-time">
+                <option value="0">At time of event</option>
+                <option value="5">5 minutes before</option>
+                <option value="15" selected>15 minutes before</option>
+                <option value="30">30 minutes before</option>
+                <option value="60">1 hour before</option>
+                <option value="120">2 hours before</option>
+                <option value="1440">1 day before</option>
+                <option value="2880">2 days before</option>
+                <option value="10080">1 week before</option>
+            </select>
+        </div>
+
+        <button id="add-reminder-btn" class="btn-primary">Add Reminder</button>
+    </div>
+
+    <script src="dist/taskpane.js"></script>
+</body>
+</html>

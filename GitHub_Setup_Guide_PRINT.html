@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outlook Multiple Alerts - GitHub Setup Guide</title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .page-break { page-break-before: always; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            color: #333;
+        }
+        
+        h1 {
+            color: #0078d4;
+            border-bottom: 3px solid #0078d4;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h2 {
+            color: #106ebe;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e1e1e1;
+        }
+        
+        h3 {
+            color: #2b88d8;
+            margin-top: 20px;
+        }
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #0078d4;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: #0078d4;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .warning {
+            background-color: #fff4ce;
+            border-left: 4px solid #ffb900;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .success {
+            background-color: #dff6dd;
+            border-left: 4px solid #107c10;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .info {
+            background-color: #e7f3ff;
+            border-left: 4px solid #0078d4;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .command-box {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        .command-box .comment {
+            color: #6a9955;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #0078d4;
+            color: white;
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .print-button:hover {
+            background-color: #106ebe;
+        }
+        
+        .toc {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 30px 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 10px 0;
+        }
+        
+        .toc a {
+            color: #0078d4;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button no-print" onclick="window.print()">🖨️ Print to PDF</button>
+    
+    <h1>Outlook Multiple Alerts</h1>
+    <h2 style="border: none; margin-top: 0; padding-top: 0;">Complete GitHub Setup Guide</h2>
+    
+    <div class="info">
+        <strong>📖 What This Guide Covers:</strong><br>
+        This guide will help you deploy your Outlook Multiple Alerts add-in to GitHub Pages so it works across all your devices without running a local server.
+    </div>
+    
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ul>
+            <li><a href="#step1">Step 1: Install Git</a></li>
+            <li><a href="#step2">Step 2: Create GitHub Account</a></li>
+            <li><a href="#step3">Step 3: Create GitHub Repository</a></li>
+            <li><a href="#step4">Step 4: Initialize Git in Your Project</a></li>
+            <li><a href="#step5">Step 5: Push to GitHub</a></li>
+            <li><a href="#step6">Step 6: Verify Upload</a></li>
+            <li><a href="#step7">Step 7: Enable GitHub Pages</a></li>
+            <li><a href="#step8">Step 8: Update Manifest URLs</a></li>
+            <li><a href="#step9">Step 9: Push Updated Manifest</a></li>
+            <li><a href="#step10">Step 10: Test Your Deployment</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ul>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="step1"><span class="step-number">1</span>Install Git</h2>
+    
+    <h3>Check if Git is Already Installed</h3>
+    <p>Open PowerShell and run:</p>
+    <div class="command-box">
+        git --version
+    </div>
+    
+    <p>If you see a version number (e.g., "git version 2.40.0"), Git is installed. <strong>Skip to Step 2.</strong></p>
+    
+    <p>If you see "command not found", continue below:</p>
+    
+    <h3>Install Git on Windows</h3>
+    <ol>
+        <li><strong>Download Git:</strong>
+            <ul>
+                <li>Go to: <code>https://git-scm.com/download/win</code></li>
+                <li>Download the 64-bit installer</li>
+            </ul>
+        </li>
+        <li><strong>Run the Installer:</strong>
+            <ul>
+                <li>Accept all default options</li>
+                <li>Important: Check "Git from the command line and also from 3rd-party software"</li>
+            </ul>
+        </li>
+        <li><strong>Restart Your Terminal:</strong>
+            <ul>
+                <li>Close PowerShell/Kiro completely</li>
+                <li>Reopen it</li>
+                <li>Test: <code>git --version</code></li>
+            </ul>
+        </li>
+    </ol>
+    
+    <h3>Configure Git (First Time Only)</h3>
+    <div class="command-box">
+        <span class="comment"># Set your name</span><br>
+        git config --global user.name "Your Name"<br>
+        <br>
+        <span class="comment"># Set your email</span><br>
+        git config --global user.email "your.email@example.com"
+    </div>
+    
+    <div class="success">
+        ✅ <strong>Git is now installed and configured!</strong>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="step2"><span class="step-number">2</span>Create GitHub Account</h2>
+    
+    <p>If you already have a GitHub account, <strong>skip to Step 3</strong>.</p>
+    
+    <ol>
+        <li>Go to <code>https://github.com</code></li>
+        <li>Click <strong>"Sign up"</strong></li>
+        <li>Follow the registration process:
+            <ul>
+                <li>Enter your email address</li>
+                <li>Create a password</li>
+                <li>Choose a username</li>
+                <li>Verify your email address</li>
+            </ul>
+        </li>
+    </ol>
+    
+    <div class="info">
+        <strong>💡 Tip:</strong> Choose a professional username - it will be part of your add-in's URL:<br>
+        <code>https://YOUR-USERNAME.github.io/outlook-multiple-alerts/</code>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="step3"><span class="step-number">3</span>Create GitHub Repository</h2>
+    
+    <ol>
+        <li><strong>Go to GitHub</strong> and log in</li>
+        <li><strong>Create New Repository:</strong>
+            <ul>
+                <li>Click the <strong>+</strong> icon (top right)</li>
+                <li>Select <strong>"New repository"</strong></li>
+            </ul>
+        </li>
+        <li><strong>Repository Settings:</strong>
+            <table>
+                <tr>
+                    <th>Setting</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Repository name</td>
+                    <td><code>outlook-multiple-alerts</code></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>Outlook add-in for managing multiple reminders</td>
+                </tr>
+                <tr>
+                    <td>Visibility</td>
+                    <td><strong>Public</strong> (required for free GitHub Pages)</td>
+                </tr>
+                <tr>
+                    <td>Initialize with README</td>
+                    <td><strong>❌ DO NOT CHECK</strong> (we already have files)</td>
+                </tr>
+                <tr>
+                    <td>Add .gitignore</td>
+                    <td><strong>❌ DO NOT ADD</strong></td>
+                </tr>
+                <tr>
+                    <td>Choose a license</td>
+                    <td><strong>❌ DO NOT ADD</strong></td>
+                </tr>
+            </table>
+        </li>
+        <li><strong>Click "Create repository"</strong></li>
+        <li><strong>Copy the Repository URL:</strong>
+            <ul>
+                <li>You'll see: <code>https://github.com/YOUR-USERNAME/outlook-multiple-alerts.git</code></li>
+                <li><strong>Keep this page open</strong> - we'll need it in Step 5</li>
+            </ul>
+        </li>
+    </ol>
+    
+    <div class="warning">
+        ⚠️ <strong>Important:</strong> Make sure the repository is <strong>Public</strong>. Private repositories require GitHub Pro for Pages.
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="step4"><span class="step-number">4</span>Initialize Git in Your Project</h2>
+    
+    <p>Open PowerShell in your project folder and run these commands:</p>
+    
+    <div class="command-box">
+        <span class="comment"># Navigate to your project folder</span><br>
+        cd "C:\Users\Christopher.Scott\Documents\Kiro Projects\Outlook Alerts"<br>
+        <br>
+        <span class="comment"># Initialize git repository</span><br>
+        git init<br>
+        <br>
+        <span class="comment"># Add all files</span><br>
+        git add .<br>
+        <br>
+        <span class="comment"># Create first commit</span><br>
+        git commit -m "Initial commit: Outlook Multiple Alerts add-in"
+    </div>
+    
+    <p>You should see output like:</p>
+    <pre>Initialized empty Git repository...
+[main (root-commit) abc1234] Initial commit: Outlook Multiple Alerts add-in
+ XX files changed, XXXX insertions(+)</pre>
+    
+    <div class="success">
+        ✅ <strong>Git repository initialized!</strong>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="step5"><span class="step-number">5</span>Push to GitHub</h2>
+    
+    <p><strong>Replace <code>YOUR-USERNAME</code> with your actual GitHub username:</strong></p>
+    
+    <div class="command-box">
+        <span class="comment"># Add GitHub as remote</span><br>
+        git remote add origin https://github.com/YOUR-USERNAME/outlook-multiple-alerts.git<br>
+        <br>
+        <span class="comment"># Rename branch to main</span><br>
+        git branch -M main<br>
+        <br>
+        <span class="comment"># Push to GitHub</span><br>
+        git push -u origin main
+    </div>
+    
+    <h3>If Prompted for Credentials</h3>
+    
+    <div class="info">
+        <strong>Username:</strong> Your GitHub username<br>
+        <strong>Password:</strong> Use a <strong>Personal Access Token</strong> (NOT your GitHub password)
+    </div>
+    
+    <h3>Creating a Personal Access Token</h3>
+    
+    <ol>
+        <li>Go to GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)</li>
+        <li>Click <strong>"Generate new token (classic)"</strong></li>
+        <li>Settings:
+            <ul>
+                <li><strong>Note:</strong> "Outlook Add-in Deployment"</li>
+                <li><strong>Expiration:</strong> 90 days (or longer)</li>
+                <li><strong>Scopes:</strong> Check <strong>repo</strong> (all sub-options)</li>
+            </ul>
+        </li>
+        <li>Click <strong>"Generate token"</strong></li>
+        <li><strong>Copy the token</strong> (you won't see it again!)</li>
+        <li>Use this token as your password when pushing</li>
+    </ol>
+    
+    <div class="success">
+        ✅ <strong>Code pushed to GitHub!</strong>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="step6"><span class="step-number">6</span>Verify Upload</h2>
+    
+    <ol>
+        <li>Go to your GitHub repository page:<br>
+            <code>https://github.com/YOUR-USERNAME/outlook-multiple-alerts</code>
+        </li>
+        <li>You should see all your files:
+            <ul>
+                <li>src/</li>
+                <li>dist/</li>
+                <li>taskpane.html</li>
+                <li>manifest.xml</li>
+                <li>package.json</li>
+                <li>README.md</li>
+                <li>And more...</li>
+            </ul>
+        </li>
+    </ol>
+    
+    <div class="success">
+        ✅ <strong>All files uploaded successfully!</strong>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="step7"><span class="step-number">7</span>Enable GitHub Pages</h2>
+    
+    <ol>
+        <li><strong>Go to Repository Settings:</strong>
+            <ul>
+                <li>Click <strong>Settings</strong> tab (top of your repo page)</li>
+            </ul>
+        </li>
+        <li><strong>Navigate to Pages:</strong>
+            <ul>
+                <li>Click <strong>Pages</strong> in the left sidebar</li>
+            </ul>
+        </li>
+        <li><strong>Configure Source:</strong>
+            <table>
+                <tr>
+                    <th>Setting</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Source</td>
+                    <td>Deploy from a branch</td>
+                </tr>
+                <tr>
+                    <td>Branch</td>
+                    <td><strong>main</strong></td>
+                </tr>
+                <tr>
+                    <td>Folder</td>
+                    <td><strong>/ (root)</strong></td>
+                </tr>
+            </table>
+        </li>
+        <li><strong>Click "Save"</strong></li>
+        <li><strong>Wait for Deployment:</strong>
+            <ul>
+                <li>GitHub will show: "Your site is ready to be published"</li>
+                <li>After 1-2 minutes, refresh the page</li>
+                <li>It will change to: "Your site is live at..."</li>
+            </ul>
+        </li>
+        <li><strong>Copy Your GitHub Pages URL:</strong><br>
+            <code>https://YOUR-USERNAME.github.io/outlook-multiple-alerts/</code>
+        </li>
+    </ol>
+    
+    <div class="success">
+        ✅ <strong>GitHub Pages enabled! Your add-in is now hosted in the cloud!</strong>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="step8"><span class="step-number">8</span>Update Manifest URLs</h2>
+    
+    <p>Now we need to update your manifest.xml to use the GitHub Pages URL instead of localhost.</p>
+    
+    <h3>Option A: Automatic (Recommended)</h3>
+    
+    <div class="command-box">
+        <span class="comment"># Replace YOUR-USERNAME with your GitHub username</span><br>
+        npm run deploy:setup YOUR-USERNAME
+    </div>
+    
+    <p>This script automatically updates all URLs in manifest.xml.</p>
+    
+    <h3>Option B: Manual</h3>
+    
+    <ol>
+        <li>Open <code>manifest.xml</code> in a text editor</li>
+        <li>Find all instances of: <code>https://localhost:3000</code></li>
+        <li>Replace with: <code>https://YOUR-USERNAME.github.io/outlook-multiple-alerts</code></li>
+        <li>Save the file</li>
+    </ol>
+    
+    <div class="info">
+        <strong>💡 What This Does:</strong><br>
+        This tells Outlook to load your add-in from GitHub Pages instead of your local computer.
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="step9"><span class="step-number">9</span>Push Updated Manifest</h2>
+    
+    <div class="command-box">
+        <span class="comment"># Add the updated manifest</span><br>
+        git add manifest.xml<br>
+        <br>
+        <span class="comment"># Commit the change</span><br>
+        git commit -m "Update manifest URLs for GitHub Pages deployment"<br>
+        <br>
+        <span class="comment"># Push to GitHub</span><br>
+        git push
+    </div>
+    
+    <p><strong>Wait 1-2 minutes</strong> for GitHub Pages to rebuild with the updated manifest.</p>
+    
+    <div class="success">
+        ✅ <strong>Manifest updated and deployed!</strong>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="step10"><span class="step-number">10</span>Test Your Deployment</h2>
+    
+    <h3>Test 1: Verify Files Are Accessible</h3>
+    
+    <p>Open in your web browser:</p>
+    <pre>https://YOUR-USERNAME.github.io/outlook-multiple-alerts/taskpane.html</pre>
+    
+    <p>You should see your task pane HTML page.</p>
+    
+    <h3>Test 2: Install in Outlook Desktop</h3>
+    
+    <ol>
+        <li>Open <strong>Outlook Desktop</strong></li>
+        <li>Go to <strong>File → Manage Add-ins</strong></li>
+        <li>Click <strong>My Add-ins</strong> (left sidebar)</li>
+        <li>Under "Custom Add-ins", click <strong>+ Add a custom add-in</strong></li>
+        <li>Select <strong>Add from file...</strong></li>
+        <li>Browse to your <code>manifest.xml</code> file</li>
+        <li>Click <strong>Install</strong></li>
+        <li>Accept the security warning</li>
+    </ol>
+    
+    <h3>Test 3: Use the Add-in</h3>
+    
+    <ol>
+        <li>Open a <strong>calendar event</strong> in Outlook</li>
+        <li>Look for <strong>"Multiple Alerts"</strong> button in the ribbon</li>
+        <li>Click it to open the task pane</li>
+        <li>Add a reminder (e.g., "15 minutes before")</li>
+        <li>Verify the reminder appears in the list</li>
+        <li>Try deleting a reminder</li>
+        <li>Try adding 6 reminders (should show limit warning)</li>
+    </ol>
+    
+    <div class="success">
+        ✅ <strong>Congratulations! Your add-in is deployed and working!</strong>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2 id="troubleshooting">Troubleshooting</h2>
+    
+    <h3>Problem: "Git is not recognized"</h3>
+    <p><strong>Solution:</strong></p>
+    <ul>
+        <li>Install Git from <code>https://git-scm.com/download/win</code></li>
+        <li>Restart your terminal after installation</li>
+        <li>Run <code>git --version</code> to verify</li>
+    </ul>
+    
+    <h3>Problem: "Permission denied" when pushing</h3>
+    <p><strong>Solution:</strong></p>
+    <ul>
+        <li>You need a Personal Access Token (see Step 5)</li>
+        <li>Don't use your GitHub password - it won't work</li>
+        <li>Generate a token at: GitHub → Settings → Developer settings → Personal access tokens</li>
+    </ul>
+    
+    <h3>Problem: "GitHub Pages not working"</h3>
+    <p><strong>Solution:</strong></p>
+    <ul>
+        <li>Make sure repository is <strong>Public</strong> (not Private)</li>
+        <li>Wait 5-10 minutes after enabling Pages</li>
+        <li>Check Settings → Pages shows "Your site is live"</li>
+        <li>Try accessing the URL in an incognito/private browser window</li>
+    </ul>
+    
+    <h3>Problem: "Add-in won't load in Outlook"</h3>
+    <p><strong>Solution:</strong></p>
+    <ul>
+        <li>Verify the GitHub Pages URL works in a browser first</li>
+        <li>Check manifest.xml has correct URLs (no localhost)</li>
+        <li>Try removing and re-adding the add-in in Outlook</li>
+        <li>Restart Outlook completely</li>
+    </ul>
+    
+    <h3>Problem: "Changes don't appear"</h3>
+    <p><strong>Solution:</strong></p>
+    <ul>
+        <li>GitHub Pages takes 1-2 minutes to update after pushing</li>
+        <li>Close and reopen Outlook completely</li>
+        <li>Clear browser cache if testing in Outlook Web</li>
+        <li>Try hard refresh: Ctrl+Shift+R</li>
+    </ul>
+    
+    <div class="page-break"></div>
+    
+    <h2>What's Next?</h2>
+    
+    <div class="success">
+        <h3>✅ Your Add-in is Now:</h3>
+        <ul>
+            <li>Hosted on GitHub Pages (free forever)</li>
+            <li>Accessible from all your devices</li>
+            <li>Available 24/7 (no local server needed)</li>
+            <li>Easy to update (just push code to GitHub)</li>
+        </ul>
+    </div>
+    
+    <h3>Making Updates</h3>
+    
+    <p>When you want to make changes to your add-in:</p>
+    
+    <div class="command-box">
+        <span class="comment"># 1. Make your code changes</span><br>
+        <br>
+        <span class="comment"># 2. Build</span><br>
+        npm run build<br>
+        <br>
+        <span class="comment"># 3. Commit and push</span><br>
+        git add .<br>
+        git commit -m "Description of your changes"<br>
+        git push<br>
+        <br>
+        <span class="comment"># 4. Wait 1-2 minutes for GitHub Pages to update</span><br>
+        <span class="comment"># 5. Users see changes next time they open Outlook</span>
+    </div>
+    
+    <h3>Testing on Other Devices</h3>
+    
+    <p>Your add-in now works on:</p>
+    <ul>
+        <li>✅ <strong>Outlook Desktop (Windows)</strong> - Install using manifest.xml</li>
+        <li>✅ <strong>Outlook Desktop (Mac)</strong> - Install using manifest.xml</li>
+        <li>✅ <strong>Outlook Web</strong> - Install via Settings → Manage Add-ins</li>
+        <li>⚠️ <strong>Outlook Mobile</strong> - Requires additional configuration</li>
+    </ul>
+    
+    <h3>Cost</h3>
+    
+    <div class="info">
+        <strong>💰 Total Cost: $0/month</strong><br>
+        <ul>
+            <li>GitHub Pages: Free</li>
+            <li>HTTPS: Included</li>
+            <li>Bandwidth: 100 GB/month (more than enough)</li>
+            <li>Storage: 1 GB (your add-in is ~5 MB)</li>
+        </ul>
+    </div>
+    
+    <h3>Privacy & Security</h3>
+    
+    <ul>
+        <li>✅ Your code is public on GitHub (required for free Pages)</li>
+        <li>✅ User data stays in Outlook (not stored on GitHub)</li>
+        <li>✅ No backend database needed</li>
+        <li>✅ HTTPS is automatic</li>
+        <li>✅ No API keys or secrets required</li>
+    </ul>
+    
+    <div class="page-break"></div>
+    
+    <h2>Quick Reference</h2>
+    
+    <h3>Important URLs</h3>
+    
+    <table>
+        <tr>
+            <th>Resource</th>
+            <th>URL</th>
+        </tr>
+        <tr>
+            <td>Your GitHub Repository</td>
+            <td><code>https://github.com/YOUR-USERNAME/outlook-multiple-alerts</code></td>
+        </tr>
+        <tr>
+            <td>Your Add-in (GitHub Pages)</td>
+            <td><code>https://YOUR-USERNAME.github.io/outlook-multiple-alerts/</code></td>
+        </tr>
+        <tr>
+            <td>Task Pane</td>
+            <td><code>https://YOUR-USERNAME.github.io/outlook-multiple-alerts/taskpane.html</code></td>
+        </tr>
+        <tr>
+            <td>GitHub Pages Settings</td>
+            <td><code>https://github.com/YOUR-USERNAME/outlook-multiple-alerts/settings/pages</code></td>
+        </tr>
+    </table>
+    
+    <h3>Common Git Commands</h3>
+    
+    <table>
+        <tr>
+            <th>Command</th>
+            <th>Purpose</th>
+        </tr>
+        <tr>
+            <td><code>git status</code></td>
+            <td>Check what files have changed</td>
+        </tr>
+        <tr>
+            <td><code>git add .</code></td>
+            <td>Stage all changes for commit</td>
+        </tr>
+        <tr>
+            <td><code>git commit -m "message"</code></td>
+            <td>Commit changes with a message</td>
+        </tr>
+        <tr>
+            <td><code>git push</code></td>
+            <td>Push commits to GitHub</td>
+        </tr>
+        <tr>
+            <td><code>git pull</code></td>
+            <td>Pull latest changes from GitHub</td>
+        </tr>
+        <tr>
+            <td><code>git log --oneline</code></td>
+            <td>View commit history</td>
+        </tr>
+    </table>
+    
+    <div class="success">
+        <h3>🎉 Congratulations!</h3>
+        <p>You've successfully deployed your Outlook Multiple Alerts add-in to GitHub Pages. It now works across all your devices without needing a local server!</p>
+    </div>
+    
+    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e1e1e1;">
+    
+    <p style="text-align: center; color: #666; font-size: 0.9em;">
+        <strong>Outlook Multiple Alerts</strong> - Made with ❤️ for Outlook users<br>
+        For support, check the documentation files in your project folder
+    </p>
+</body>
+</html>
